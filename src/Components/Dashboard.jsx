@@ -75,7 +75,7 @@ const Dashboard = () => {
         <div className='bg-black '>
           <div className='flex justify-between p-5 mx-5'>
             {" "}
-            <h1 className='text-3xl font-bold mb-4 text-blue-500'>
+            <h1 className='text-2xl lg:text-3xl font-bold mb-4 text-blue-500'>
               {username + "'s"} Dashboard
             </h1>
             <button
@@ -85,8 +85,8 @@ const Dashboard = () => {
             </button>
           </div>
 
-          <div className='mb-4 '>
-            <div className='flex justify-between items-center'>
+          <div className='mb-4'>
+            <div className='flex flex-col lg:flex-row justify-between items-center'>
               <div>
                 <img
                   // src={githubData.avatar_url}
@@ -96,11 +96,11 @@ const Dashboard = () => {
               </div>
               <div className='p-5 flex gap-5'>
                 <div>
-                  <h2 className='text-xl text-white  font-semibold mb-2'>
+                  <h2 className='lg:text-xl text-[18px] text-white  font-semibold mb-2'>
                     GitHub Statistics
                   </h2>
                   {githubData && (
-                    <div className='bg-slate-400 p-4 rounded-lg shadow-md'>
+                    <div className='bg-slate-400 p-3 lg:p-4 rounded-lg shadow-md'>
                       <p className='text-lg font-medium'>
                         Repositories: {githubData.public_repos}
                       </p>
@@ -108,11 +108,11 @@ const Dashboard = () => {
                   )}
                 </div>
                 <div>
-                  <h2 className='text-xl text-white  font-semibold mb-2'>
+                  <h2 className='lg:text-xl text-[18px] text-white  font-semibold mb-2'>
                     LeetCode Statistics
                   </h2>
                   {leetcodeData && (
-                    <div className='bg-slate-400 p-4 rounded-lg shadow-md'>
+                    <div className='bg-slate-400 p-3 lg:p-4 rounded-lg shadow-md'>
                       <p className='text-lg font-medium'>
                         Total Solved Problems: {leetcodeData.totalSolved}
                       </p>
@@ -134,7 +134,10 @@ const Dashboard = () => {
                           <h2 className='text-blue-500 font-bold text-xl'>
                             {repo.name}
                           </h2>
-                          <a href={repo.html_url} className='text-2xl'>
+                          <a
+                            href={repo.html_url}
+                            className='text-2xl'
+                            target='_blank'>
                             <CgWebsite />
                           </a>
                         </div>
