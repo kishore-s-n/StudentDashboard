@@ -1,13 +1,33 @@
 /* eslint-disable react/prop-types */
 import { useState, useEffect } from "react";
-import Repository from "../Utils/Repository";
+import { CgWebsite } from "react-icons/cg";
 
-const Repos = ({ repos }) => {
+const Repos = () => {
+  const [repos, setRepos] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [filterBy, setFilterBy] = useState("none");
   const [filteredRepos, setFilteredRepos] = useState([]);
   const [selectedRepo, setSelectedRepo] = useState(null);
   const [commits, setCommits] = useState([]);
+  const githubUsername = localStorage.getItem("githubUsername");
+
+  useEffect(() => {
+    const fetchRepos = async () => {
+      try {
+        const response = await fetch(
+          `https://api.github.com/users/${githubUsername}/repos`
+        );
+        const data = await response.json();
+        setRepos(data);
+      } catch (error) {
+        console.error("Error fetching repositories:", error);
+      }
+    };
+
+    if (githubUsername) {
+      fetchRepos();
+    }
+  }, [githubUsername]);
 
   useEffect(() => {
     // Filter and sort repos based on search term and filter criteria
@@ -34,7 +54,7 @@ const Repos = ({ repos }) => {
   const fetchCommits = async (repoName) => {
     try {
       const response = await fetch(
-        `https://api.github.com/repos/kishore-s-n/${repoName}/commits`
+        `https://api.github.com/repos/${githubUsername}/${repoName}/commits`
       );
       const data = await response.json();
       setCommits(data);
@@ -82,7 +102,17 @@ const Repos = ({ repos }) => {
               key={repo.id}
               className='m-5 px-5 py-2 bg-slate-600 rounded-lg shadow-md cursor-pointer'
               onClick={() => handleRepoClick(repo)}>
-              <Repository repo={repo} />
+              <div className='flex justify-between items-center'>
+                <h1 className='py-3 text-2xl text-white font-bold'>
+                  {repo.name}
+                </h1>
+                <a
+                  href={repo.html_url}
+                  target='_blank'
+                  className='text-white text-3xl'>
+                  <CgWebsite />
+                </a>
+              </div>
               {selectedRepo === repo && (
                 <div className='mt-4'>
                   <h4 className='text-lg font-semibold mb-2'>Commits</h4>

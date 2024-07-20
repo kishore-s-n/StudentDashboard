@@ -65,23 +65,29 @@ const Todo = ({ tasks, setTasks }) => {
       </div>
       <ul>
         {tasks.map((task) => (
-          <li key={task.id} className='flex items-center mb-2'>
-            <input
-              type='checkbox'
-              checked={task.completed}
-              onChange={() => toggleTaskCompletion(task.id)}
-              className='mr-2'
-            />
-            <span
-              className={
-                task.completed ? "line-through text-gray-400" : "text-white"
-              }>
-              {task.text}
-            </span>
+          <li
+            key={task.id}
+            className='flex justify-between items-center bg-blue-900 p-3'>
+            <div>
+              <input
+                type='checkbox'
+                checked={task.completed}
+                onChange={() => toggleTaskCompletion(task.id)}
+                className='mr-2'
+              />
+              <span
+                className={
+                  task.completed
+                    ? "line-through text-gray-400 font-semibold text-xl"
+                    : "text-white font-semibold text-xl"
+                }>
+                {task.text}
+              </span>
+            </div>
             <button
               onClick={() => removeTask(task.id)}
-              className='ml-2 bg-red-500 text-white p-1 rounded-lg'>
-              Remove
+              className='m-2 bg-red-500 text-white p-1.5 rounded-lg'>
+              X
             </button>
           </li>
         ))}

@@ -11,7 +11,7 @@ const Dashboard = () => {
   const [leetcodeUsername, setLeetcodeUsername] = useState("");
   const [githubData, setGithubData] = useState(null);
   const [leetcodeData, setLeetcodeData] = useState(null);
-  const [repos, setRepos] = useState([]);
+  // const [repos, setRepos] = useState([]);
   const [showForm, setShowForm] = useState(false);
 
   // Task management
@@ -42,12 +42,6 @@ const Dashboard = () => {
       const response = await fetch(`https://api.github.com/users/${username}`);
       const data = await response.json();
       setGithubData(data);
-
-      const reposResponse = await fetch(
-        `https://api.github.com/users/${username}/repos`
-      );
-      const reposData = await reposResponse.json();
-      setRepos(reposData);
     } catch (error) {
       console.error("Error fetching GitHub data:", error);
     }
@@ -74,7 +68,7 @@ const Dashboard = () => {
     setLeetcodeUsername("");
     setGithubData(null);
     setLeetcodeData(null);
-    setRepos([]);
+    // setRepos([]);
     setTasks([]); // Clear tasks state
     setShowForm(true);
   };
@@ -137,7 +131,7 @@ const Dashboard = () => {
                 <Todo tasks={tasks} setTasks={setTasks} />
               </div>
               <div className='basis-1/2'>
-                <Repos repos={repos} /> {/* Pass repos to Repos component */}
+                <Repos /> {/* Pass repos to Repos component */}
               </div>
             </div>
           </div>
